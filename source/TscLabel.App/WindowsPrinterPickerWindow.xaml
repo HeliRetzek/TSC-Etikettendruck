@@ -1,0 +1,74 @@
+<Window x:Class="TscLabel.App.WindowsPrinterPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Windows-Drucker auswählen" Width="720" Height="520" MinWidth="620" MinHeight="420"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize" Background="#F3F7F7"
+        FontFamily="Segoe UI" UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Petrol" Color="#0F6F73" />
+        <SolidColorBrush x:Key="PetrolDark" Color="#0A5559" />
+        <SolidColorBrush x:Key="Line" Color="#D4E0E1" />
+        <SolidColorBrush x:Key="Muted" Color="#64757D" />
+        <Style TargetType="Button">
+            <Setter Property="MinHeight" Value="38" />
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource PetrolDark}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="#F3F7F7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="82" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource Petrol}" Padding="24,0">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Windows-Drucker auswählen" Foreground="White" FontSize="23" FontWeight="SemiBold" />
+                <TextBlock Text="Installierte lokale Drucker und verbundene Netzwerkfreigaben" Foreground="#D9F3F2" FontSize="12.5" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Margin="20,16,20,12" Padding="12" Background="White" BorderBrush="{StaticResource Line}" BorderThickness="1" CornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                <TextBlock Text="Drucker auswählen; ein Doppelklick übernimmt ihn sofort." Foreground="{StaticResource Muted}" FontSize="12.5" Margin="4,0,4,8" />
+                <ListBox x:Name="PrinterList" Grid.Row="1" BorderThickness="0" FontSize="13" MouseDoubleClick="PrinterListDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="5,7">
+                                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                                <TextBlock Text="{Binding FullName}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" />
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DriverName}" Foreground="{StaticResource Muted}" FontSize="11.5" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="  ·  Standarddrucker" Foreground="{StaticResource Petrol}" FontWeight="SemiBold" FontSize="11.5">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers><DataTrigger Binding="{Binding IsDefault}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock x:Name="StatusText" Grid.Row="2" Foreground="{StaticResource Muted}" FontSize="11.5" Margin="4,8,4,0" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2" Margin="20,0,20,18">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+            <Button Content="Aktualisieren" Click="RefreshClick" Margin="0,0,8,0" />
+            <Button Grid.Column="1" Content="Windows-Drucker hinzufügen…" Click="OpenWindowsPrintersClick" />
+            <Button Grid.Column="3" Content="Abbrechen" Click="CancelClick" Margin="0,0,8,0" />
+            <Button Grid.Column="4" Content="Drucker übernehmen" Click="ChooseClick" Background="{StaticResource Petrol}" Foreground="White" BorderBrush="{StaticResource Petrol}" />
+        </Grid>
+    </Grid>
+</Window>

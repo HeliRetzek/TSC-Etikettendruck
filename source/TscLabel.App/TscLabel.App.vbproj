@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>TSC-Etikettendruck</AssemblyName>
+    <ApplicationIcon>Assets\sozo-omega.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+    <OptionStrict>On</OptionStrict>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionInfer>On</OptionInfer>
+    <Nullable>enable</Nullable>
+    <VersionPrefix>1.9.9</VersionPrefix>
+    <BuildStamp Condition="'$(BuildStamp)' == ''">DEV</BuildStamp>
+    <Version>$(VersionPrefix)</Version>
+    <AssemblyVersion>1.9.9.0</AssemblyVersion>
+    <FileVersion>1.9.9.0</FileVersion>
+    <InformationalVersion>$(VersionPrefix)+$(BuildStamp)</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TscLabel.Core\TscLabel.Core.vbproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\sozo-omega.ico" />
+  </ItemGroup>
+</Project>
